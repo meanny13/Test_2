@@ -10,10 +10,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --envelope-pink: #FFAEC9; /* ชมพูเส้นขอบซอง */
-    --envelope-bg:   #FFF0F5; /* ชมพูนมพื้นหลัง */
-    --grid-color:    rgba(255, 174, 201, 0.25); /* สีลายตาราง */
-    --heart-pink:    #FFAEC9;
+    --envelope-pink: #FFAEC9; 
     --text-pink:     #FF7597;
     --wine-dark:     #6D3D4D;
     --white:         #FFFFFF;
@@ -43,90 +40,31 @@
   }
   @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
 
-  /* ─── ENVELOPE (DIAGRAM BASED ON IMAGE) ── */
+  /* ─── ENVELOPE (USING REAL IMAGE FROM USER) ── */
   .envelope-wrap {
     position: relative;
     cursor: pointer;
-    width: 350px;
-    filter: drop-shadow(0 15px 30px rgba(255, 174, 201, 0.3));
-    transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: min(350px, 90vw); /* ปรับขนาดให้พอดีหน้าจอ */
+    filter: drop-shadow(0 15px 35px rgba(255, 174, 201, 0.4));
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .envelope-wrap:hover { transform: translateY(-6px) scale(1.02); }
-  .envelope-wrap:active { transform: scale(0.98); }
+  .envelope-wrap:hover { transform: translateY(-8px) scale(1.03); }
+  .envelope-wrap:active { transform: scale(0.97); }
 
-  .env-body {
-    background-color: #FFF2F6;
-    background-image: linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
-                      linear-gradient(var(--grid-color) 1px, transparent 1px);
-    background-size: 16px 16px;
-    border-radius: 20px;
-    width: 350px;
-    height: 230px;
-    position: relative;
-    overflow: hidden;
-    border: 4px solid var(--envelope-pink);
-    box-shadow: inset 0 0 0 3px var(--white);
+  /* ดึงรูปภาพ envelope.png มาแสดงตรงๆ เพื่อความเหมือน 100% */
+  .env-real-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
   }
-
-  /* เส้นเฉียงของซองจดหมาย */
-  .env-lines {
-    position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  }
-  .env-lines::before, .env-lines::after {
-    content: ''; position: absolute; top: 0; width: 50%; height: 100%;
-    border-top: 3px solid var(--envelope-pink);
-  }
-  .env-lines::before {
-    left: 0; border-right: 3px solid var(--envelope-pink);
-    transform: skewY(28deg); transform-origin: top left;
-  }
-  .env-lines::after {
-    right: 0; border-left: 3px solid var(--envelope-pink);
-    transform: skewY(-28deg); transform-origin: top right;
-  }
-
-  /* ตัวอักษร Miori ด้านบน */
-  .env-brand {
-    position: absolute; top: 22px; width: 100%; text-align: center;
-    font-family: 'Pattaya', sans-serif;
-    font-size: 32px; color: var(--text-pink); z-index: 3;
-    text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF,
-                 0 2px 8px rgba(255,117,143,0.2);
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-  }
-  .env-brand span { font-size: 12px; transform: translateY(-5px); text-shadow: none; }
-
-  /* กรอบหัวใจตรงกลางที่ใส่รูป IMG_8127.png */
-  .env-heart-container {
-    position: absolute; top: 52%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 82px; height: 82px;
-    background: var(--white);
-    /* คลิปขอบนอกสุดให้เป็นรูปทรงหัวใจไร้รอยต่อ */
-    clip-path: path('M41 15.3C35-2.2 12.2-4.5 3.3 8.2c-10 14.3-.8 33.7 37.7 58.5 38.5-24.8 47.7-44.2 37.7-58.5C69.8-4.5 47-2.2 41 15.3z');
-    z-index: 2;
-    box-shadow: 0 4px 12px rgba(255, 174, 201, 0.4);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .env-heart-img {
-    width: 100%; height: 100%;
-    object-fit: cover; /* ตัดครอปรูปให้อยู่ในหัวใจพอดีสวยงาม */
-  }
-
-  /* คำว่า Click ด้านล่าง */
-  .env-click-text {
-    position: absolute; bottom: 22px; width: 100%; text-align: center;
-    font-family: 'Mitr', sans-serif; font-weight: 500;
-    font-size: 18px; color: var(--text-pink); z-index: 3;
-    text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .env-click-text span { font-size: 10px; transform: translateY(1px); }
 
   .click-hint {
-    text-align: center; margin-top: 20px;
-    font-size: 13px; color: rgba(255,255,255,0.95);
+    text-align: center; margin-top: 25px;
+    font-size: 14px; color: rgba(255, 255, 255, 0.95);
     letter-spacing: .8px; font-family: 'Mitr', sans-serif;
+    text-shadow: 0 2px 4px rgba(109, 61, 77, 0.3);
     animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100%{opacity:.7; transform: translateY(0);} 50%{opacity:1; transform: translateY(-3px);} }
@@ -183,7 +121,7 @@
   }
   .qr-frame:hover { border-color: var(--text-pink); background: #FFF5F8; transform: scale(1.03); }
   
-  /* แสดงรูปภาพ IMG_9752.png ทันที */
+  /* แสดงรูปภาพ IMG_9752.png ล็อกไว้ */
   .qr-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block; }
   
   .qr-note { font-size: 12px; color: var(--wine-dark); line-height: 1.6; opacity: 0.75; }
@@ -282,37 +220,18 @@
 </head>
 <body>
 
-<!-- ═══ OVERLAY / ENVELOPE (MATCHED TO DESIGN) ═══ -->
+<!-- ═══ OVERLAY / ENVELOPE (ดึงรูปภาพต้นฉบับมาใช้โดยตรง) ═══ -->
 <div id="overlay">
   <div style="text-align:center">
     <div class="envelope-wrap" onclick="openEnvelope()">
-      <div class="env-body">
-        
-        <!-- เส้นพับซอง -->
-        <div class="env-lines"></div>
-
-        <!-- ข้อความหัวซองและหัวใจจิ๋ว -->
-        <div class="env-brand">
-          <span>♥</span> Miori <span>♥</span>
-        </div>
-
-        <!-- หัวใจตรงกลางซองดึงรูปภาพเข้ามาใส่ -->
-        <div class="env-heart-container">
-          <img src="IMG_8127.png" alt="Heart Decoration" class="env-heart-img" onerror="this.style.display='none'">
-        </div>
-
-        <!-- ข้อความท้ายซองและหัวใจจิ๋ว -->
-        <div class="env-click-text">
-          <span>♥</span> Click <span>♥</span>
-        </div>
-
-      </div>
+      <!-- เรียกใช้รูปภาพที่คุณลูกค้าออกแบบโดยตรง จะได้เหมือนเป๊ะ 100% -->
+      <img src="envelope.png" alt="Miori ซองจดหมาย" class="env-real-img" onerror="this.alt='กรุณาใส่รูปซองจดหมายชื่อ envelope.png ในโฟลเดอร์'">
     </div>
     <p class="click-hint">✨ แตะซองจดหมายเพื่อเปิดดูข้อมูลชำระเงินนะคะ ✨</p>
   </div>
 </div>
 
-<!-- ═══ MAIN PAGE (MATCHED THEME) ═══ -->
+<!-- ═══ MAIN PAGE ═══ -->
 <div id="main">
   <div class="page-header">
     <h1>Miori Shop 💗</h1>
@@ -321,7 +240,7 @@
 
   <div class="page-body">
 
-    <!-- QR / slip image (IMG_9752.png ล็อกภาพไว้ในตัวเว็บเลย) -->
+    <!-- QR / slip image -->
     <div class="qr-section">
       <label for="qr-input">
         <div class="qr-frame" id="qrFrame">
@@ -334,7 +253,7 @@
 
     <hr class="divider">
 
-    <!-- payment channels (Minimal - Fonts Approved) -->
+    <!-- payment channels -->
     <p class="section-title">🌸 ช่องทางการชำระเงิน</p>
     <div class="payment-list">
 
